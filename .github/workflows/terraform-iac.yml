@@ -1,0 +1,93 @@
+name: terraform-iac
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the terraform branch
+  push:
+    branches: [ terraform ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  terraform-actions:
+    name: terraform-apply
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout Repo 
+      uses: actions/checkout@master 
+
+    - name: Configure AWS Credentils 
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    # - name: Setup Terraform 
+    #   uses: hashicorp/setup-terraform@v1
+    #   with:
+    #     terraform_version: 1.0.10
+
+    - name: Terraform format 
+      id: fmt 
+      run: terraform fmt --check --diff 
+      continue-on-error: true 
+
+    - name: Initialize terraform
+      id: init 
+      run: terraform init -upgrade 
+      continue-on-error: false
+
+    - name: Create dev env
+      if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
+      run: terraform workspace new dev 
+      continue-on-error: true 
+
+    - name: Create dev env
+      if: github.ref == 'refs/heads/master' && github.event_name == 'pull_request'
+      run: terraform workspace new prod 
+      continue-on-error: true 
+
+    - name: Validate terraform 
+      id: validate 
+      run: terraform validate -no-color
+      continue-on-error: false 
+
+    - name: Terraform plan in dev
+      if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
+      run: terraform plan -no-color 
+      continue-on-error: true 
+      env:
+        TF_WORKSPACE: dev 
+
+    - name: Terraform plan in prod
+      if: github.ref == 'refs/heads/master' && github.event_name == 'pull_request'
+      run: terraform plan -no-color 
+      continue-on-error: true 
+      env:
+        TF_WORKSPACE: prod 
+
+    - name: Terraform apply in dev
+      if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
+      run: terraform apply --auto-approve 
+      continue-on-error: true 
+      env:
+        TF_WORKSPACE: dev 
+
+    - name: Terraform apply in prod
+      if: github.ref == 'refs/heads/master' && github.event_name == 'pull_request'
+      run: terraform apply --auto-approve 
+      continue-on-error: true 
+      env:
+        TF_WORKSPACE: prod
+
+    - name: Terraform destroy in dev
+      if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
+      run: terraform destroy --auto-approve 
+      continue-on-error: true 
+      env:
+        TF_WORKSPACE: dev 
