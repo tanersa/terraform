@@ -1,7 +1,7 @@
 resource "aws_subnet" "sharks_private_subnet" {
   count             = length(slice(local.az_names, 0, 2))
   vpc_id            = aws_vpc.sharks_vpc.id
-  cidr_block        = cidrsubnet(var.cidr_block, 8, count.index + length(local.az_names))
+  cidr_block        = cidrsubnet(var.vpc_cidr, 8, count.index + length(local.az_names))
   availability_zone = local.az_names[count.index]
 
   tags = {
