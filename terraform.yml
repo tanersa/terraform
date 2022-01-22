@@ -1,0 +1,19 @@
+--- 
+- hosts: localhost
+  vars:
+    state: present 
+    s3_bucket: sharks-terra-backend-file
+    key: terraform.tfstate
+    region: us-east-2
+    app_env: dev 
+  tasks:
+  - name: Run terraform files
+    terraform: 
+      project_path: "./"
+      state: "{{ state }}"
+      backend_config:
+        bucket: "{{ s3_bucket }}"
+        key: "{{ key }}"
+        region: "{{ region }}"
+      variables_file: "{{ app_env }}.tfvars"
+      workspace: "{{ app_env }}"
