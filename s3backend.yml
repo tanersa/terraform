@@ -1,0 +1,17 @@
+--- 
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+  - name: Install boto3 
+    pip:
+      name:
+        - boto3
+        - botocore
+      executable: pip3
+        
+  - name: Create S3 bucket
+    s3_bucket:
+      name: sharks-terra-backend-file
+      state: present
+      region: us-east-2
