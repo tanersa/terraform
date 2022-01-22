@@ -4,6 +4,11 @@ resource "aws_lb" "elb" {
   security_groups = [aws_security_group.elb_sg.id]
   load_balancer_type = "application"
 
+  access_logs {
+    bucket = "sharks-alb-access-logs-bucket12345"
+    enabled = true
+  }
+
 
 #   listener {
 #     instance_port     = 80
