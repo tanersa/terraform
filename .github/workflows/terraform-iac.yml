@@ -47,7 +47,7 @@ jobs:
       run: terraform workspace new dev 
       continue-on-error: true 
 
-    - name: Create dev env
+    - name: Create prod env
       if: github.ref == 'refs/heads/master' && github.event_name == 'pull_request'
       run: terraform workspace new prod 
       continue-on-error: true 
@@ -84,10 +84,3 @@ jobs:
       continue-on-error: true 
       env:
         TF_WORKSPACE: prod
-
-    - name: Terraform destroy in dev
-      if: github.ref == 'refs/heads/terraform' && github.event_name == 'push'
-      run: terraform destroy --auto-approve 
-      continue-on-error: true 
-      env:
-        TF_WORKSPACE: dev 
