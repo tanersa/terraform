@@ -4,7 +4,7 @@ locals {
 
 resource "aws_vpc" "sharks_vpc" {
   #count = terraform.workspace == "dev" ? 0 : 1
-  cidr_block       = var.cidr_block
+  cidr_block       = var.vpc_cidr
   instance_tenancy = var.tenancy
 
   tags = {
