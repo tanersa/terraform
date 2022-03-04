@@ -4,7 +4,7 @@
 
 <br />
 
-&nbsp; &nbsp; Terraform is an infrastructure as code **(IAC)** Contious Deployment Stack other than Cloud Formation Template **(CFT)**. Terraform, 
+&nbsp; &nbsp; **Terraform** is an infrastructure as code **(IAC)** Contious Deployment Stack other than Cloud Formation Template **(CFT)**. Terraform, 
 differs than **CFT** because it is cloud/platform agnostic **IAC** tool. It works with **Google Cloud, Azure** and **AWS.**
 
 &nbsp; &nbsp; This time we are going to provide solution for creating **Postgres Cluster** using **Terraform** and **Ansible** interconnectively. Therefore,
