@@ -129,8 +129,24 @@ Once terraform is initialized, it creates **.terraform** file.
                   }
             } 
             
-            
-
+   -  Let's go and apply changes
+             
+             terraform plan
+             terraform apply 
+                 (Go to VPC on AWS Console, SharksVPC is created.
+                 You can also verify cidr block and instance tenancy)
+ 
+ **Terraform State File:**
+ After applying all these changes, we can see **terraform.tfstate** file is created automatically. **Terraform** keeps track on infrastructure based 
+ on **state** file.
+ 
+ If one accidently delete anything manually from terraform state file and save it, Terraform would get confused and will not function as expected. It might
+ recreate resources for you that are not applicable. 
+ 
+ Another important point to be careful is that keeping **terraform state** in local. This would create huge security risk because this is an **unencrypted file**.
+ We need to keep this file **safe** and **secure**.
+ 
+ 
 
             
                                                   
