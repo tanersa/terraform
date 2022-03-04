@@ -5,7 +5,7 @@
 <br />
 
 &nbsp; &nbsp; Terraform is an infrastructure as code **(IAC)** Contious Deployment Stack other than Cloud Formation Template **(CFT)**. Terraform, 
-differs than **CFT** because it is cloud/platform agnostic **IAC** tool.
+differs than **CFT** because it is cloud/platform agnostic **IAC** tool. It works with **Google Cloud, Azure** and **AWS.**
 
 &nbsp; &nbsp; This time we are going to provide solution for creating **Postgres Cluster** using **Terraform** and **Ansible** interconnectively. Therefore,
 we are not going to use **managed PostGres** from AWS. 
@@ -89,13 +89,53 @@ And once we run terraform, it will write IPs in hosts file.
           
    -  Create instances and bring up the cluster, deploying Terraform
       
-        terraform apply        
+          terraform apply        
 
 Now, go to EC2 on AWS Console and see Postgress instances are getting initialized. 
 
 There should be **1 Master** and **2 Standbys**
 
 And if you go to hosts file, **3 IPs are added.**
+
+<br />
+
+**LET'S DEEP DIVE IN TERRAFORM**...
+
+Now, we will leverage all the **feature** of Terraform including implementation of **CI/CD pipeline**.
+
+   -  **Install** Terraform from HashiCorp. 
+   -  Second, we need to tell Terraform which **cloud provider** we are going to work with. To do that, create **provider.tf** file. 
+
+            provider "aws" {
+                region= "us-east-2"        
+            }
+            
+   -  Initialize Terraform 
+            
+            terraform init 
+                 (Successfully initialized)
+                 
+Once terraform is initialized, it creates **.terraform** file. 
+
+   -  Create your VPC in **provider.tf** file. We always start with **resource** keyword when we create something from scratch.
+
+            resource "aws_vpc" "sharks_vpc" {
+                 cidr_block       = "10.0.0.0/16"
+                 instance_tenancy = default
+
+                 tags = {
+                     Name = "SharksVPC"
+           
+                  }
+            } 
+            
+            
+
+
+            
+                                                  
+                                                                      
+
 
 
 
