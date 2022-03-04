@@ -144,7 +144,10 @@ Once terraform is initialized, it creates **.terraform** file.
  recreate resources for you that are not applicable. 
  
  Another important point to be careful is that keeping **terraform state** in local. This would create huge security risk because this is an **unencrypted file**.
- We need to keep this file **safe** and **secure**.
+ We need to keep this file **safe** and **secure**. 
+ 
+ Futhermore, we have one project and there are many resources in this project who contributes regularly. Therefore, we have to share this file. Let's say if you
+ keep it locally and added **two instances**, and other resource added only **one instance**, then Terraform will **get confused**.
  
  
 
