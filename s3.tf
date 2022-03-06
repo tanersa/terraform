@@ -31,4 +31,5 @@ data "template_file" "sharks" {
         access_logs_bucket = "sharks-alb-access-logs-bucket12345"
         policy_account_id = local.current_account
     }
+  
 }
