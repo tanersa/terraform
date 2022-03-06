@@ -12,4 +12,5 @@ resource "aws_vpc" "sharks_vpc" {
     Environment = terraform.workspace
     Location    = "USA"
   }
+  
 }
