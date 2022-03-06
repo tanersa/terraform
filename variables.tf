@@ -44,7 +44,6 @@ variable "s3_bucket" {
   default = "sharks-s3-bucket-12345"
 }
 
-
 variable "subnet_cidr_block" {
   type        = string
   description = "Used for public subnets"
