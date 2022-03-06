@@ -44,4 +44,5 @@ resource "aws_security_group" "rds_sg" {
     tags = {
         Name = "rds_sg-${terraform.workspace}"
     }
+  
 }
