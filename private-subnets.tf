@@ -26,8 +26,6 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-
-
 resource "aws_route_table" "privatert" {
   vpc_id = aws_vpc.sharks_vpc.id
 
