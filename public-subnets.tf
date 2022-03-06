@@ -32,6 +32,7 @@ resource "aws_route_table" "publicrt" {
   tags = {
     Name = "Sharks-PublicRT"
   }
+  
 }
 
 
