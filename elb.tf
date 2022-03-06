@@ -9,7 +9,6 @@ resource "aws_lb" "elb" {
     enabled = true
   }
 
-
 #   listener {
 #     instance_port     = 80
 #     instance_protocol = "http"
