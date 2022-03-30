@@ -29,7 +29,7 @@ Then, we create our security group,
              egress {
               from_port        = 0
               to_port          = 0
-              protocol         = "-1". ---> means all protocols
+              protocol         = "-1" ---> means all protocols
               cidr_blocks      = ["0.0.0.0/0"]---> only for testing purposes
             }      
           }
@@ -146,8 +146,18 @@ Once terraform is initialized, it creates **.terraform** file.
  Another important point to be careful is that keeping **terraform state** in local. This would create huge security risk because this is an **unencrypted file**.
  We need to keep this file **safe** and **secure**. 
  
- Futhermore, we have one project and there are many resources in this project who contributes regularly. Therefore, we have to share this file. Let's say if you
- keep it locally and added **two instances**, and other resource added only **one instance**, then Terraform will **get confused**.
+ Futhermore, we have one project and there are many resources in this project who contributes regularly. Therefore, we have to share this file. Let's say if you keep it locally and added **two instances**, and other resource added only **one instance**, then Terraform will **get confused**.
+ 
+ For security purpose, we usually keep terraform state file in **S3 Bucket** and we can leverage S3 functionalities such as **Encryption, Versioning** and we can lock this file through **ACL** or **S3 Bucket Policy**. That's why we dont keep this file locally. 
+ 
+ We also can leverage **"--auto-approve"**  flag for **CI/CD** pipeline. We can automatically approve while we **deploy** our **terraform**. This is the **power of --auto-approve**.
+                    
+           terraform apply --auto-approve
+           
+           
+ 
+ 
+ 
  
  
 
