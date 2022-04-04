@@ -154,7 +154,11 @@ Once terraform is initialized, it creates **.terraform** file.
                     
            terraform apply --auto-approve
            
-           
+We have hard coded values in **provider.tf** file  
+
+What is the problem here?
+
+As we add more and more resources to this file, it'll get bigger and bigger so then it will be hard to manage. Therefore, we can create one more file and call all the variabless from that file. Let's create **variable.tf** file
  
  
  
