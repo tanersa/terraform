@@ -221,8 +221,8 @@ To destroy current workspace
                      count
                      
                      resource "aws-vpc" sharks_pc {
-                        count=5   -----------------> loop through all VPCs)
-                 
+                        count=5   -----------------> (loop through all VPCs)
+                     }
                     
                     
                                       
