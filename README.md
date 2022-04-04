@@ -160,6 +160,75 @@ What is the problem here?
 
 As we add more and more resources to this file, it'll get bigger and bigger so then it will be hard to manage. Therefore, we can create one more file and call all the variabless from that file. Let's create **variable.tf** file
  
+ <br />
+ 
+ **For example:**
+ 
+                    variable.tf
+                    
+                    variable "aws_region" {
+                       default="us-east-2"
+                    }
+                    
+                    variable "cidr_block" {
+                        default="10.0.0.0/16"
+                    }    
+                    
+                                  
+Accordingly, provider.tf file would have as follows
+
+                    provider.tf
+                    
+                    provider "aws"{
+                       region= var.aws_region
+                    }
+                    
+                    resource "aws_vpc" "sharks_vpc"{
+                       cidr_block= var.cidr_block
+                    }
+                    
+Another **important** term in terraform is **workspace**.
+
+We deploy infrastructure to different environments **DEV, TEST, STAGE, UAT, PROD**
+
+
+To list all workspaces, use below cli
+
+                    terraform workspace list
+                    
+To create another new workspace:
+
+                    terraform workspace new dev
+                    
+To call workspace dynamically in terraform
+
+                    tags= {
+                       Name= "SharksVPC"
+                       Environment= "terraform.workspace"
+                       Location= "USA"
+                    }
+                    
+To switch default workspace 
+
+                    terraform workspace select default
+                    
+To destroy current workspace
+
+                    terraform destroy
+                    
+**What keyword is being used for loop in terraform?**      
+
+                     count
+                     
+                     resource "aws-vpc" sharks_pc {
+                        count=5   -----------------> loop through all VPCs)
+                 
+                    
+                    
+                                      
+ 
+ 
+ 
  
  
  
